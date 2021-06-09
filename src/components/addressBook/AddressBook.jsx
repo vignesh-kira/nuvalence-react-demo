@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Pagination from 'react-bootstrap/Pagination'
@@ -10,39 +12,39 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 import {fetchUsersAsync, selectAddress} from "./addressBookSlice";
-import {Content, StyledColumn, AddressRow, Avatar} from "./StyledComponents";
+import {StyledColumn, AddressRow, Avatar} from "../styledComponents/StyledComponents";
+import {selectAddressDetails, setSelectedAddress} from "../addressDetails/addressDetailsSlice";
 
 
 const AddressBook = () => {
 	const { usersList, fetchUsersListStatus, currentPage } = useSelector(selectAddress);
+	const { selectedAddress } = useSelector(selectAddressDetails);
 	const dispatch = useDispatch();
-	// const handleGetUsers = async() => {
-	// 	try {
-	// 		const { data: { results, info } } = await getUsersList();
-	// 	} catch (error) {
-	// 		console.log(error.response.status)
-	// 	}
-	// };
 
 	useEffect(() => {
-		dispatch(fetchUsersAsync())
-	}, [dispatch]);
+		if (!fetchUsersListStatus) {
+			dispatch(fetchUsersAsync())
+		}
+	}, [dispatch, fetchUsersListStatus]);
 
 	const renderUsers = () => (
-		usersList.map(({ name, picture, email }, index) => {
+		usersList.map((user, index) => {
+			const { name, picture, email } = user;
 			const { first, last, title} = name;
 			return (
 				<AddressRow key={index}>
 					<Avatar src={picture.medium} />
-					<Content>
-						{/*<h5>{user.name}</h5>*/}
+					<div>
 						<h5>
-							{`${first} ${last}`}
+							{`${title}. ${first} ${last}`}
 						</h5>
 						<p>{email}</p>
-					</Content>
+					</div>
 					<div>
-						<Button size="sm">
+						<Button
+							size="sm"
+							onClick={() => dispatch(setSelectedAddress(user))}
+						>
 							{`Details `}
 							<FontAwesomeIcon icon={faArrowAltCircleRight} />
 						</Button>
@@ -52,14 +54,18 @@ const AddressBook = () => {
 		})
 	);
 
-	return (
-		<Container>
-			<Row>
-				<StyledColumn>
+	const renderAlert = () => (
+		<Alert variant="danger">
+			Unable to load the address book. Please try again later!
+		</Alert>
+	);
+
+	const renderAddressBook = () => (
+		fetchUsersListStatus === 200
+			? (
+				<>
 					{
-						fetchUsersListStatus === 200 && (
-							renderUsers()
-						)
+						renderUsers()
 					}
 					<Pagination>
 						<Pagination.Prev
@@ -74,10 +80,25 @@ const AddressBook = () => {
 							<FontAwesomeIcon icon={faAngleRight} />
 						</Pagination.Next>
 					</Pagination>
+				</>
+			)
+			: renderAlert()
+	)
+
+	return (
+		<Container>
+			{
+				!!Object.keys(selectedAddress).length && (
+					<Redirect to='/details' />
+				)
+			}
+			<Row>
+				<StyledColumn>
+					{
+						fetchUsersListStatus && renderAddressBook()
+					}
 				</StyledColumn>
-
 			</Row>
-
 		</Container>
 	)
 }

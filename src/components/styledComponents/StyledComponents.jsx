@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 import Col from 'react-bootstrap/Col'
-
-
-export const Content = styled.div`
-`;
+import {CardImg} from "react-bootstrap";
 
 export const AddressRow = styled.div`
     display: flex;
     margin: 14px;
-    background-color: #d5d1d1;
+    background-color: #fcfcfc;
     padding: 14px;
     border-radius: 10px;
     min-width: 500px;
@@ -17,7 +14,6 @@ export const AddressRow = styled.div`
     flex-direction: row;
 `;
 
-
 export const StyledColumn = styled(Col)`
 	display: flex;
     margin: auto;
@@ -25,10 +21,17 @@ export const StyledColumn = styled(Col)`
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-        background-color: #333;
+    background-color: #333;
     padding: 20px;
 `;
 
 export const Avatar = styled.img`
 	border-radius: 50%;
+`;
+
+export const AvatarDetails = styled(CardImg) `
+	width: fit-content;
+    border-radius: 5px;
+    text-align: center;
+    margin: auto;
 `;

@@ -21,7 +21,7 @@ const AddressDetails = () => {
 	 * Renders address details of a person
 	 */
 	const renderAddressDetails = () => {
-		const { name, location, picture, email, phone, dob, registered } = selectedAddress;
+		const { name = {}, location = {}, picture, email, phone, dob, registered } = selectedAddress;
 		const { title, first, last } = name;
 		const { city, country, postcode, state, street } = location;
 

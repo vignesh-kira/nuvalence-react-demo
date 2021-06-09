@@ -1,6 +1,6 @@
 import addressDetailsReducer, { setSelectedAddress } from './addressDetailsSlice';
 
-describe('Address Book Reducer', () => {
+describe('Address Details Reducer', () => {
   const initialState = {
     selectedAddress: {}
   };

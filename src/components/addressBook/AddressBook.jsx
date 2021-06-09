@@ -10,13 +10,13 @@ import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleRight, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
-import { fetchUsersAsync, selectAddress } from "./addressBookSlice";
+import { fetchUsersAsync, selectAddressBook } from "./addressBookSlice";
 import { AddressRow, AvatarThumbnail, ColumnWrapper, UserActionColumn } from "../styledComponents/StyledComponents";
 import { selectAddressDetails, setSelectedAddress } from "../addressDetails/addressDetailsSlice";
 
 
 const AddressBook = () => {
-	const { usersList, fetchUsersListStatus, currentPage } = useSelector(selectAddress);
+	const { usersList, fetchUsersListStatus, currentPage } = useSelector(selectAddressBook);
 	const { selectedAddress } = useSelector(selectAddressDetails);
 	const dispatch = useDispatch();
 
@@ -111,6 +111,12 @@ const AddressBook = () => {
 
 		</Container>
 	)
+}
+
+AddressBook.defaultProps = {
+	usersList: [],
+	fetchUsersListStatus: null,
+	currentPage: 1
 }
 
 export default AddressBook;

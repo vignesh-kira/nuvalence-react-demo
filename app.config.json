@@ -1,0 +1,9 @@
+{
+  "apps" : [
+    {
+      "name"      : "nuvalence-react-demo",
+      "script"    : "serve -s build",
+      "interpreter": "none"
+    }
+  ]
+}

@@ -113,4 +113,7 @@ const AddressDetails = () => {
 	)
 }
 
+AddressDetails.defaultProps = {
+	selectedAddress: {}
+}
 export default AddressDetails;

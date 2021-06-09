@@ -37,6 +37,6 @@ export const addressBookSlice = createSlice({
 	},
 });
 
-export const selectAddress = (state) => state.addressBook;
+export const selectAddressBook = (state) => state.addressBook;
 
 export default addressBookSlice.reducer;

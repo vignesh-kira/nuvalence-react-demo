@@ -23,13 +23,8 @@ const AddressDetails = () => {
 	const renderAddressDetails = () => {
 		const { name, location, picture, email, phone, dob, registered } = selectedAddress;
 		const { title, first, last } = name;
-		const {
-			 city,
-			country,
-			postcode,
-			state,
-			street,
-		} = location;
+		const { city, country, postcode, state, street } = location;
+
 		return (
 			<>
 				<Card  className="col-md-12 p-2">

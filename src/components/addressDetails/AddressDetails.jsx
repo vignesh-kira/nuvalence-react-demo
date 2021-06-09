@@ -1,17 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleLeft, faUser } from '@fortawesome/free-solid-svg-icons'
-import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleLeft, faUser, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 import { selectAddressDetails, setSelectedAddress } from "./addressDetailsSlice";
-import { StyledColumn, AvatarDetails, DataColumn } from "../styledComponents/StyledComponents";
+import { ColumnWrapper, AvatarDetails, DataColumn } from "../styledComponents/StyledComponents";
 
 
 const AddressDetails = () => {
@@ -92,7 +91,7 @@ const AddressDetails = () => {
 		<Container>
 
 			<Row>
-				<StyledColumn>
+				<ColumnWrapper>
 					Address Details
 					{
 						/**
@@ -113,7 +112,7 @@ const AddressDetails = () => {
 						<FontAwesomeIcon icon={faArrowAltCircleLeft} />
 						{ ` Back`}
 					</Button>
-				</StyledColumn>
+				</ColumnWrapper>
 			</Row>
 		</Container>
 	)

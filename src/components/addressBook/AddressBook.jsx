@@ -3,17 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Pagination from 'react-bootstrap/Pagination'
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleRight, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
-import {fetchUsersAsync, selectAddress} from "./addressBookSlice";
-import {StyledColumn, AddressRow, Avatar} from "../styledComponents/StyledComponents";
-import {selectAddressDetails, setSelectedAddress} from "../addressDetails/addressDetailsSlice";
+import { fetchUsersAsync, selectAddress } from "./addressBookSlice";
+import { AddressRow, AvatarThumbnail, ColumnWrapper, UserActionColumn } from "../styledComponents/StyledComponents";
+import { selectAddressDetails, setSelectedAddress } from "../addressDetails/addressDetailsSlice";
 
 
 const AddressBook = () => {
@@ -27,20 +26,22 @@ const AddressBook = () => {
 		}
 	}, [dispatch, fetchUsersListStatus]);
 
-	const renderUsers = () => (
+	const renderUsersList = () => (
 		usersList.map((user, index) => {
 			const { name, picture, email } = user;
 			const { first, last, title} = name;
 			return (
 				<AddressRow key={index}>
-					<Avatar src={picture.medium} />
-					<div>
+					<Col md={3}>
+						<AvatarThumbnail src={picture.medium} />
+					</Col>
+					<Col md={6}>
 						<h5>
 							{`${title}. ${first} ${last}`}
 						</h5>
 						<p>{email}</p>
-					</div>
-					<div>
+					</Col>
+					<UserActionColumn md={3}>
 						<Button
 							size="sm"
 							onClick={() => dispatch(setSelectedAddress(user))}
@@ -48,7 +49,7 @@ const AddressBook = () => {
 							{`Details `}
 							<FontAwesomeIcon icon={faArrowAltCircleRight} />
 						</Button>
-					</div>
+					</UserActionColumn>
 				</AddressRow>
 			)
 		})
@@ -65,8 +66,9 @@ const AddressBook = () => {
 			? (
 				<>
 					{
-						renderUsers()
+						renderUsersList()
 					}
+
 					<Pagination>
 						<Pagination.Prev
 							disabled={currentPage === 1}
@@ -88,17 +90,25 @@ const AddressBook = () => {
 	return (
 		<Container>
 			{
+				/**
+				 * Redirect to Details page when address is selected
+				 */
 				!!Object.keys(selectedAddress).length && (
 					<Redirect to='/details' />
 				)
 			}
-			<Row>
-				<StyledColumn>
-					{
-						fetchUsersListStatus && renderAddressBook()
-					}
-				</StyledColumn>
-			</Row>
+			{
+				fetchUsersListStatus && (
+					<Row>
+						<ColumnWrapper>
+							{
+								renderAddressBook()
+							}
+						</ColumnWrapper>
+					</Row>
+				)
+			}
+
 		</Container>
 	)
 }

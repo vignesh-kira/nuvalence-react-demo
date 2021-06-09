@@ -1,20 +1,21 @@
 import styled from 'styled-components';
 import Col from 'react-bootstrap/Col'
-import {CardImg} from "react-bootstrap";
+import CardImg  from "react-bootstrap/CardImg";
+import Row from 'react-bootstrap/Row'
 
-export const AddressRow = styled.div`
-    display: flex;
+export const AddressRow = styled(Row)`
     margin: 14px;
     background-color: #fcfcfc;
     padding: 14px;
     border-radius: 10px;
-    min-width: 500px;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
+    min-width: initial;
+    
+    @media only screen and (min-width: 768px) {
+        min-width: 550px;
+    }
 `;
 
-export const StyledColumn = styled(Col)`
+export const ColumnWrapper = styled(Col)`
 	display: flex;
     margin: auto;
     flex-direction: column;
@@ -25,8 +26,12 @@ export const StyledColumn = styled(Col)`
     padding: 20px;
 `;
 
-export const Avatar = styled.img`
+export const AvatarThumbnail = styled.img`
 	border-radius: 50%;
+	height: 72px;
+	width: 72px;
+	margin: 14px;
+	margin: auto;
 `;
 
 export const AvatarDetails = styled(CardImg) `
@@ -41,4 +46,10 @@ export const DataColumn = styled(Col)`
     border: 1px solid #d7d7d7;
     padding: 14px;
     margin: 14px;
+`;
+
+export const UserActionColumn = styled(Col)`
+	display: flex;
+    justify-content: center;
+    align-items: center;
 `;

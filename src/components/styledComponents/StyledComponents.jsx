@@ -35,3 +35,10 @@ export const AvatarDetails = styled(CardImg) `
     text-align: center;
     margin: auto;
 `;
+
+export const DataColumn = styled(Col)`
+	background-color: #dee2e6;
+    border: 1px solid #d7d7d7;
+    padding: 14px;
+    margin: 14px;
+`;
